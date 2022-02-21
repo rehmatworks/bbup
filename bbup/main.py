@@ -161,7 +161,7 @@ def get_bucket(bucket):
 def remote_upload(bucket: Optional[str] = None):
     url = None
     while url is None:
-        url = str(p('Remote URL').strip()
+        url = str(p('Remote URL')).strip()
         if not validators.url(url):
             typer.echo(typer.style(text='The provided URL is invalid.', fg=typer.colors.YELLOW))
             url = None
