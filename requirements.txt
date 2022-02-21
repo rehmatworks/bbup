@@ -1,0 +1,29 @@
+arrow==1.2.2
+attrs @ file:///Users/rehmat/Library/Caches/pypoetry/artifacts/5b/25/94/5d165cd3190cb7dfdc98de86c28e8131fc6e19d83a504412664abffec0/attrs-21.4.0-py2.py3-none-any.whl
+autopep8==1.6.0
+b2sdk==1.14.0
+bbuploader==0.1.0
+certifi==2021.10.8
+charset-normalizer==2.0.12
+click==8.0.4
+colorama==0.4.4
+decorator==5.1.1
+idna==3.3
+logfury==1.0.1
+more-itertools @ file:///Users/rehmat/Library/Caches/pypoetry/artifacts/a6/67/cb/fbf4fb4bbfedae39080e351b12ca64287d47c839769eeaf91434f3274c/more_itertools-8.12.0-py3-none-any.whl
+packaging @ file:///Users/rehmat/Library/Caches/pypoetry/artifacts/47/3f/ce/b240169f7d8bef1ff24a0269b709721ce86543c2ec25e0b6adb2c2d7ac/packaging-21.3-py3-none-any.whl
+pluggy @ file:///Users/rehmat/Library/Caches/pypoetry/artifacts/29/58/fc/ed8b7451d3ef91a6465024f5656141da996e7aafd4d41a1659629a75e7/pluggy-0.13.1-py2.py3-none-any.whl
+py @ file:///Users/rehmat/Library/Caches/pypoetry/artifacts/b3/5c/47/ba5a596e01a2b61fa2daa6a438252483ad8c04e6c99e5dc22eaf8a489a/py-1.11.0-py2.py3-none-any.whl
+pycodestyle==2.8.0
+pyparsing @ file:///Users/rehmat/Library/Caches/pypoetry/artifacts/8e/18/e1/a47fbcc66e38a452c34d2a444d74d8a03fd4aa7c0b6e27c0bee1582107/pyparsing-3.0.7-py3-none-any.whl
+pytest @ file:///Users/rehmat/Library/Caches/pypoetry/artifacts/e4/88/dd/3dbff42e3c4462dc3d027f5024025571166cb35edee215ce93852a968c/pytest-5.4.3-py3-none-any.whl
+python-dateutil==2.8.2
+requests==2.27.1
+shellingham @ file:///Users/rehmat/Library/Caches/pypoetry/artifacts/ca/61/43/ec767b1cf54d938fa5571849f020ea99feb0889232517b1ff810f2e9a5/shellingham-1.4.0-py2.py3-none-any.whl
+six==1.16.0
+toml==0.10.2
+tqdm==4.62.3
+typer==0.4.0
+urllib3==1.26.8
+validators==0.18.2
+wcwidth @ file:///Users/rehmat/Library/Caches/pypoetry/artifacts/7d/f4/60/0737157bb9711fec72c70dff523aa54491eef317e0d586cf5388ff0908/wcwidth-0.2.5-py2.py3-none-any.whl
