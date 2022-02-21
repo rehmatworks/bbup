@@ -11,7 +11,7 @@ pip install bbup
 Sign in to your Backblaze account, create a bucket, create application keys and then configure **bbup**:
 
 ```bash
-bbup --configure
+bbup configure
 ```
 
 You can add as many buckets as you want. Beware that app keys are stored in plain text, so don't use this software on a shared computer.
