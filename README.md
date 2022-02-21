@@ -14,7 +14,7 @@ Sign in to your Backblaze account, create a bucket, create application keys and 
 bbup --configure
 ```
 
-You can add as many buckets as you want.
+You can add as many buckets as you want. Beware that app keys are stored in plain text, so don't use this software on a shared computer.
 
 ### Upload Remote Files
 Upload a remote file to the default bucket:
@@ -38,4 +38,9 @@ UPload a remote file to a selected bucket:
 
 ```bash
 bbup local-upload --bucket mybucket
+```
+
+### Uninstall
+```bash
+pip uninstall bbup
 ```
