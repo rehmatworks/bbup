@@ -22,7 +22,7 @@ Upload a remote file to the default bucket:
 bbup remote-upload
 ```
 
-UPload a remote file to a selected bucket:
+Upload a remote file to a selected bucket:
 
 ```bash
 bbup remote-upload --bucket mybucket
@@ -34,7 +34,7 @@ Upload a local file to the default bucket:
 bbup local-upload
 ```
 
-UPload a remote file to a selected bucket:
+Upload a remote file to a selected bucket:
 
 ```bash
 bbup local-upload --bucket mybucket
