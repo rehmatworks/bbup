@@ -1,6 +1,7 @@
 import json
+import uuid
 from pathlib import Path
-import tempfile
+import os
 from typing import Optional
 
 import typer
@@ -202,21 +203,23 @@ def remote_upload(bucket: Optional[str] = None):
         raise typer.Exit(typer.style(text='File cannot be downloaded from the provided URL.', fg=typer.colors.RED))
 
     content_type = None
-    with tempfile.NamedTemporaryFile(mode='wb+') as f:
-        with requests.get(url, stream=True, headers=HEADERS) as res:
-            content_type = res.headers.get('Content-Type')
-            try:
-                total_size = int(res.headers.get('Content-Length'))
-            except:
-                total_size = 0
-                
-            with typer.progressbar(range(total_size)) as progress:
-                for chunk in res.iter_content(chunk_size=CHUNK_SIZE):
-                    f.write(chunk)
-                    progress.update(CHUNK_SIZE)
-        
+    file_local_path = APP_BASE_DIR / str(uuid.uuid4())
+    try:
+        with open(file_local_path, mode='wb+') as f:
+            with requests.get(url, stream=True, headers=HEADERS) as res:
+                content_type = res.headers.get('Content-Type')
+                try:
+                    total_size = int(res.headers.get('Content-Length'))
+                except:
+                    total_size = 0
+                    
+                with typer.progressbar(range(total_size)) as progress:
+                    for chunk in res.iter_content(chunk_size=CHUNK_SIZE):
+                        f.write(chunk)
+                        progress.update(CHUNK_SIZE)
+            
         typer.echo(typer.style(text='Uploading file to Backblaze.', fg=typer.colors.BRIGHT_BLUE))       
-        if do_upload(path=f.name, save_as=save_as, bucket=bucket, content_type=content_type):
+        if do_upload(path=file_local_path, save_as=save_as, bucket=bucket, content_type=content_type):
             base_url = bucket_obj.get('url')
             if base_url:
                 uploaded_url = f'{base_url}/{save_as}'
@@ -227,6 +230,8 @@ def remote_upload(bucket: Optional[str] = None):
             typer.echo(typer.style(text=message, fg=typer.colors.GREEN))
         else:
             typer.echo(typer.style(text=f'File upload failed. Please try again.', fg=typer.colors.YELLOW))
+    finally:
+        os.remove(file_local_path)
  
 @app.command(help='Upload a file from a local path.')   
 def local_upload(bucket: Optional[str] = None, content_type: Optional[str] = None):
