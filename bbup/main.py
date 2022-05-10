@@ -240,9 +240,9 @@ def local_upload(bucket: Optional[str] = None, content_type: Optional[str] = Non
         base_url = bucket_obj.get('url')
         if base_url:
             uploaded_url = f'{base_url}/{save_as}'
-            message = f'File [{get_file_size(f.name)}] has been uploaded: {uploaded_url}'
+            message = f'File [{get_file_size(str(path.resolve()))}] has been uploaded: {uploaded_url}'
         else:
-            message = f'File [{get_file_size(f.name)}] has been successfully uploaded.'
+            message = f'File [{get_file_size(str(path.resolve()))}] has been successfully uploaded.'
                 
         typer.echo(typer.style(text=message, fg=typer.colors.GREEN))
     else:
