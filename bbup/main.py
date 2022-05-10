@@ -202,7 +202,7 @@ def remote_upload(bucket: Optional[str] = None):
         raise typer.Exit(typer.style(text='File cannot be downloaded from the provided URL.', fg=typer.colors.RED))
 
     content_type = None
-    with tempfile.NamedTemporaryFile(mode='w+b') as f:
+    with tempfile.NamedTemporaryFile(mode='wb+') as f:
         with requests.get(url, stream=True, headers=HEADERS) as res:
             content_type = res.headers.get('Content-Type')
             try:
