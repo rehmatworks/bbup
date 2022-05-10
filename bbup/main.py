@@ -108,11 +108,11 @@ def configure(set_default: bool = o(prompt='Do you want to set this bucket as de
         except:
             raise typer.Exit(typer.style(text='Configuration settings cannot be saved.', fg=typer.colors.RED))
 
-def do_upload(path, save_as, bucket):
+def do_upload(path, save_as, bucket, content_type=None):
     if not Path(path).is_file:
         raise typer.Exit(typer.style(text=f'Local file path [{path}] does not exist.', fg=typer.colors.YELLOW))
     try:
-        bucket.upload_local_file(local_file=path, file_name=save_as)
+        bucket.upload_local_file(local_file=path, file_name=save_as, content_type=content_type)
         return True
     except:
         return False
@@ -177,8 +177,10 @@ def remote_upload(bucket: Optional[str] = None):
     if requests.head(url).status_code != 200:
         raise typer.Exit(typer.style(text='File cannot be downloaded from the provided URL.', fg=typer.colors.RED))
 
+    content_type = None
     with tempfile.NamedTemporaryFile(mode='w+b') as f:
         with requests.get(url, stream=True, headers=HEADERS) as res:
+            content_type = res.headers.get('Content-Type')
             try:
                 total_size = int(res.headers.get('Content-Length'))
             except:
@@ -190,7 +192,7 @@ def remote_upload(bucket: Optional[str] = None):
                     progress.update(CHUNK_SIZE)
         
         typer.echo(typer.style(text='Uploading file to Backblaze.', fg=typer.colors.BRIGHT_BLUE))       
-        if do_upload(path=f.name, save_as=save_as, bucket=bucket):
+        if do_upload(path=f.name, save_as=save_as, bucket=bucket, content_type=content_type):
             base_url = bucket_obj.get('url')
             if base_url:
                 uploaded_url = f'{base_url}/{save_as}'
@@ -203,14 +205,14 @@ def remote_upload(bucket: Optional[str] = None):
             typer.echo(typer.style(text=f'File upload failed. Please try again.', fg=typer.colors.YELLOW))
  
 @app.command(help='Upload a file from a local path.')   
-def local_upload(bucket: Optional[str] = None):
+def local_upload(bucket: Optional[str] = None, content_type: Optional[str] = None):
     path: Path = Path(p('Local Path'))
     if not path.is_file():
         raise typer.Exit(typer.style(text=f'File cannot be found at path {path}', fg=typer.colors.YELLOW))
     
     save_as: str = p('Save as', default=path.name)
     bucket_obj, bucket = get_bucket(bucket)
-    if do_upload(path=path, save_as=save_as, bucket=bucket):
+    if do_upload(path=path, save_as=save_as, bucket=bucket, content_type=content_type):
         base_url = bucket_obj.get('url')
         if base_url:
             uploaded_url = f'{base_url}/{save_as}'
